@@ -27,7 +27,13 @@ bool canGrab(int mouseX, int mouseY, vector <vector<int>> positions)
 }
 
 int calculateSlot(int x) {
-    x = x / 100 + 50;
+    if (x >= 100) {
+        x = x - x % 100;
+    }
+    else {
+        x = 0;
+    }
+    
     return x;
 
 }
