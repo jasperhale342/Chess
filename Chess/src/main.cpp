@@ -2,11 +2,12 @@
 #include <vector>
 #include <array>
 #include <cmath>
-
+#include <board.h>
 #include "SDL.h"
 #undef main
 
 using namespace std;
+using namespace chess;
 
 typedef struct coor {
     int x;
@@ -15,6 +16,7 @@ typedef struct coor {
 
 bool canGrab(int mouseX, int mouseY, vector <vector<int>> positions)
 {
+    
     cout << mouseX << ", " << mouseY << endl;
     for (auto position : positions) {
         cout << "position: " << position[0] << ", " << position[1] << endl;
@@ -76,6 +78,10 @@ int main(int argc, char* args[])
     pieceDimensionRect.y = 0;
     pieceDimensionRect.w = 100;
     pieceDimensionRect.h = 100;
+
+    //screen.init()
+    //board
+    Board chessBoard(true);
 
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
