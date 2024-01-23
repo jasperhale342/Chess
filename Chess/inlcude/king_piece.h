@@ -5,6 +5,7 @@ namespace chess {
 	class KingPiece : public Piece {
 	public:
 		KingPiece(PieceColor piece_color, PieceType piece_type);
-		virtual bool canMove(Coor coor);
+		~KingPiece();
+		//virtual bool canMove(Coor coor) override;
 	};
 }

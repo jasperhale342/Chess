@@ -1,5 +1,5 @@
 #include <Board.h>
-#include <king_piece.h>
+#include <iostream>
 
 
 namespace chess {
@@ -18,6 +18,13 @@ namespace chess {
 
 	}
 
+	void Board::init() {
+
+	}
+	bool Board::can_grab() {
+		return false;
+	}
+
 	void Board::update_position(Coor coor) {
 
 	}
@@ -29,17 +36,25 @@ namespace chess {
 	void Board::intialize_bottom(PieceColor color) {
 		// initialize king
 		KingPiece kingPiece(color, KING);
-		Coor kingCoor;
+		
+		int x = 0;
+		int y = 700;
+		
 		if (color == WHITE) {
-			kingCoor.x = 400;
-			kingCoor.y = 700;
+			x = 400;
+			
 		}
 		else {
-			kingCoor.x = 300;
-			kingCoor.y = 700;
+			x = 300;
 		}
-		std::pair<Coor, Piece> p(kingCoor, kingPiece);
-		piece_positions.insert(p);
+			
+		
+		Coor kingCoor = {x,y};
+		std::pair<Coor, Piece&> p = { kingCoor ,kingPiece };
+	
+		piece_positions.emplace(p);
+		std::cout << piece_positions[kingCoor].m_piece_color << std::endl;
+
 		// intialize Queen
 	
 	

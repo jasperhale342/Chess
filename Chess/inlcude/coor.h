@@ -4,7 +4,9 @@ struct Coor {
 	int y;
 
 	bool operator==(const Coor& other) const {
-		return x == other.x && y == other.y;
+		return (x == other.x && y == other.y);
 	}
 
 };
+
+

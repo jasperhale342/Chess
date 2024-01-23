@@ -24,12 +24,33 @@
     <ClCompile Include="src\Board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\king_piece.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inlcude\Screen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inlcude\Board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inlcude\coor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inlcude\king_piece.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inlcude\piece.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inlcude\piece_color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inlcude\piece_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inlcude\custom_hash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
