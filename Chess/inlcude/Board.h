@@ -4,15 +4,15 @@
 #include <piece.h>
 #include <king_piece.h>
 #include <coor.h>
-#include <custom_hash.h>
+#include <custom_hash_coor.h>
 
 namespace chess {
 	class Board {
 	public:
-		std::unordered_map <Coor, Piece, KeyHasher> piece_positions;
+		std::unordered_map <Coor, Piece *, KeyHasherCoor> piece_positions;
 		Board(bool is_white);
 		void init();
-		bool can_grab();
+		bool canGrab();
 		void update_position(Coor coor);
 		void intialize_top(PieceColor color);
 		void intialize_bottom(PieceColor color);

@@ -4,6 +4,7 @@
 #include <cmath>
 #include <board.h>
 #include "SDL.h"
+#include "Screen.h"
 #undef main
 
 using namespace std;
@@ -82,12 +83,12 @@ int main(int argc, char* args[])
     //screen.init()
     //board
     Board chessBoard(true);
-
-
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s", SDL_GetError());
-        return 1;
+    Screen screen;
+    if (!screen.init()) {
+        return 0;
     }
+
+
 
     if (SDL_CreateWindowAndRenderer(800, 800, SDL_WINDOW_OPENGL, &window, &renderer)) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window and renderer: %s", SDL_GetError());

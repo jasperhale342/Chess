@@ -50,7 +50,10 @@
     <ClInclude Include="inlcude\piece_type.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\custom_hash.h">
+    <ClInclude Include="inlcude\custom_hash_coor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inlcude\custom_hash_piece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

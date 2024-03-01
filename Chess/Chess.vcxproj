@@ -175,7 +175,8 @@
   <ItemGroup>
     <ClInclude Include="inlcude\board.h" />
     <ClInclude Include="inlcude\coor.h" />
-    <ClInclude Include="inlcude\custom_hash.h" />
+    <ClInclude Include="inlcude\custom_hash_coor.h" />
+    <ClInclude Include="inlcude\custom_hash_piece.h" />
     <ClInclude Include="inlcude\king_piece.h" />
     <ClInclude Include="inlcude\piece.h" />
     <ClInclude Include="inlcude\piece_color.h" />

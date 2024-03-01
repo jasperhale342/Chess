@@ -21,7 +21,7 @@ namespace chess {
 	void Board::init() {
 
 	}
-	bool Board::can_grab() {
+	bool Board::canGrab() {
 		return false;
 	}
 
@@ -35,7 +35,7 @@ namespace chess {
 	};
 	void Board::intialize_bottom(PieceColor color) {
 		// initialize king
-		KingPiece kingPiece(color, KING);
+		Piece * kingPiece = new KingPiece(color, KING);
 		
 		int x = 0;
 		int y = 700;
@@ -50,10 +50,10 @@ namespace chess {
 			
 		
 		Coor kingCoor = {x,y};
-		std::pair<Coor, Piece&> p = { kingCoor ,kingPiece };
+		std::pair<Coor, Piece*> p = { kingCoor , kingPiece };
 	
 		piece_positions.emplace(p);
-		std::cout << piece_positions[kingCoor].m_piece_color << std::endl;
+		std::cout << (*piece_positions[kingCoor]).m_piece_color << std::endl;
 
 		// intialize Queen
 	
