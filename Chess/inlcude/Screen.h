@@ -6,6 +6,7 @@
 #include <custom_hash_piece.h>
 #include <iostream>
 #include <custom_hash_coor.h>
+#include <board.h>
 
 namespace chess {
 	class Screen
@@ -23,17 +24,18 @@ namespace chess {
 		SDL_Texture* m_board_texture;
 		std::unordered_map <PieceType, SDL_Texture*, KeyHasherPiece> m_piece_textures;
 		bool isGrabbing;
-		Sint32 mouseX;
-		Sint32 mouseY;
+		Board chessBoard;
+		Coor piece_to_move;
+		SDL_Texture* piece_to_move_texture;
 
 	public:
 		Screen();
 		void update();
-		void renderBoard(const std::unordered_map<Coor, Piece*, KeyHasherCoor>) const;
+		void renderBoard() const;
 		bool init();
 		bool processSDLEvents();
-		bool canGrab();
-		int calculateSlot();
+		bool canGrab(int, int);
+		int calculateSlot(int x);
 		void close();
 		void clear();
 	

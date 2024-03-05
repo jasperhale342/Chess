@@ -12,8 +12,8 @@ namespace chess {
 		std::unordered_map <Coor, Piece *, KeyHasherCoor> piece_positions;
 		Board(bool is_white);
 		void init();
-		bool canGrab();
-		void update_position(Coor coor);
+		bool can_move_piece(int x, int y);
+		void update_position(int x, int y);
 		void intialize_top(PieceColor color);
 		void intialize_bottom(PieceColor color);
 

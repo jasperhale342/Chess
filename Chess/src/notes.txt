@@ -1,0 +1,3 @@
+why does piece_to_move_texture = m_piece_textures[(it->second)->m_piece_type] work in canGrab but not in RenderBoard
+
+contiainers

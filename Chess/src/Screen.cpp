@@ -11,28 +11,41 @@ namespace chess {
 		m_board_texture(nullptr),
 		m_piece_textures(),
 		isGrabbing(false),
-		mouseX(0),
-		mouseY(0)
+		chessBoard(true)
 		 {
 		
 	
 	}
-	bool Screen::canGrab()
+	bool Screen::canGrab(int mouseX, int mouseY)
 	{
-		/*
+		
 		std::cout << mouseX << ", " << mouseY << std::endl;
-		for (auto position : positions) {
-			cout << "position: " << position[0] << ", " << position[1] << endl;
-			if (abs(mouseX - position[0]) < 50 && abs(mouseY - position[1]) < 50) {
+		for (auto it = chessBoard.piece_positions.begin(); it != chessBoard.piece_positions.end(); ++it) {
+			//cout << "position: " << position[0] << ", " << position[1] << endl;
+			if (abs(mouseX - (it->first).x) < 50 && abs(mouseY - (it->first).y) < 50) {
+				//might need to change this later
+				piece_to_move = it->first;
+				piece_to_move_texture = m_piece_textures[(it->second)->m_piece_type];
 				return true;
 			}
 		}
 
 
-		*/
+		
 		return false;
 	}
+	int Screen::calculateSlot(int x) {
+		if (x >= 100) {
+			x = x - x % 100;
+		}
+		else {
+			x = 0;
+		}
 
+		return x;
+
+	}
+	
 
 	bool Screen::init() {
 		if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -97,17 +110,20 @@ namespace chess {
 			if (event.text.type == SDL_QUIT) {
 				return false;
 			}
-		}
-		/*
-		
 			if (event.type == SDL_MOUSEBUTTONUP && isGrabbing) {
 				if (event.button.button == SDL_BUTTON_LEFT) {
-					isGrabbing = false;
-					cout << "placing at: " << event.motion.x << ", " << event.motion.y << endl;
-					positions.at(0)[0] = calculateSlot(event.motion.x);
-					positions.at(0)[1] = calculateSlot(event.motion.y);
-					pieceDimensionRect.x = calculateSlot(event.motion.x);
-					pieceDimensionRect.y = calculateSlot(event.motion.y);
+					if (chessBoard.can_move_piece(calculateSlot(event.motion.x), calculateSlot(event.motion.y))) {
+						chessBoard.update_position(event.motion.x, event.motion.y);
+						isGrabbing = false;
+						std::cout << "placing at: " << event.motion.x << ", " << event.motion.y << std::endl;
+
+
+						positions.at(0)[0] = calculateSlot(event.motion.x);
+						positions.at(0)[1] = calculateSlot(event.motion.y);
+						pieceDimensionRect.x = calculateSlot(event.motion.x);
+						pieceDimensionRect.y = calculateSlot(event.motion.y);
+					}
+					
 				}
 			}
 			if (event.type == SDL_MOUSEMOTION && isGrabbing) {
@@ -118,7 +134,9 @@ namespace chess {
 				cout << "left is being pressed" << endl;
 				if (event.button.button == SDL_BUTTON_LEFT) {
 
-					if (canGrab((int)event.motion.x, (int)event.motion.y, positions)) {
+					if (canGrab((int)event.motion.x, (int)event.motion.y)) {
+
+
 						cout << "grabbing on" << endl;
 						isGrabbing = true;
 					}
@@ -126,24 +144,29 @@ namespace chess {
 				}
 
 			}
+		}
+		/*
+		
+			
 
 		}
 		*/
 		
 		return true;
 	}
-	void Screen::renderBoard(const std::unordered_map<Coor, Piece*, KeyHasherCoor> board) const {
+	void Screen::renderBoard() const {
 		SDL_RenderClear(m_renderer);
 		SDL_SetRenderTarget(m_renderer, m_board_texture);
 		SDL_RenderCopy(m_renderer, m_board_texture, &(Screen::BOARD_POSITION), &(Screen::BOARD_DIMENSION));
 		SDL_Texture* piece = nullptr;
 		
-		for (auto it = board.begin(); it != board.end(); ++it) {
+		for (auto it = chessBoard.piece_positions.begin(); it != chessBoard.piece_positions.end(); ++it) {
 			
 				piece = m_piece_textures.at((it->second)->m_piece_type);
+				//piece = m_piece_textures[(it->second)->m_piece_type];
 			
 
-				SDL_Rect pos = {};
+			SDL_Rect pos = {(it->first).x, (it->first).y, 100, 100 };
 			SDL_RenderCopy(m_renderer, piece, &(Screen::PIECE_DIMENSION), &pos);
 			
 		}

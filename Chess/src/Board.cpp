@@ -21,11 +21,11 @@ namespace chess {
 	void Board::init() {
 
 	}
-	bool Board::canGrab() {
-		return false;
+	bool Board::can_move_piece(int x, int y) {
+		return true;
 	}
 
-	void Board::update_position(Coor coor) {
+	void Board::update_position(int x, int y) {
 
 	}
 
