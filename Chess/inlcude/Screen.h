@@ -14,6 +14,7 @@ namespace chess {
 		const static int SCREEN_WIDTH = 800;
 		const static int SCREEN_HEIGHT = 800;
 		const static SDL_Rect BOARD_DIMENSION;
+		const static SDL_Rect PIECE_DIMENSION;
 		const static SDL_Rect BOARD_POSITION;
 		
 	private:

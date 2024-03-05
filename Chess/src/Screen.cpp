@@ -5,6 +5,7 @@
 namespace chess {
 	const SDL_Rect Screen::BOARD_DIMENSION = {0,0,800,800};
 	const SDL_Rect Screen::BOARD_POSITION = { 0,0,800,800 };
+	const SDL_Rect Screen::PIECE_DIMENSION = { 0,0,100,100 };
 	Screen::Screen() : m_window(NULL),
 		m_renderer(NULL),
 		m_board_texture(nullptr),
@@ -134,7 +135,18 @@ namespace chess {
 	void Screen::renderBoard(const std::unordered_map<Coor, Piece*, KeyHasherCoor> board) const {
 		SDL_RenderClear(m_renderer);
 		SDL_SetRenderTarget(m_renderer, m_board_texture);
-		SDL_RenderCopy(m_renderer, m_board_texture, &(Screen::BOARD_DIMENSION), &(Screen::BOARD_POSITION));
+		SDL_RenderCopy(m_renderer, m_board_texture, &(Screen::BOARD_POSITION), &(Screen::BOARD_DIMENSION));
+		SDL_Texture* piece = nullptr;
+		
+		for (auto it = board.begin(); it != board.end(); ++it) {
+			
+				piece = m_piece_textures.at((it->second)->m_piece_type);
+			
+
+				SDL_Rect pos = {};
+			SDL_RenderCopy(m_renderer, piece, &(Screen::PIECE_DIMENSION), &pos);
+			
+		}
 		SDL_SetRenderTarget(m_renderer, NULL);
 		SDL_RenderPresent(m_renderer);
 
