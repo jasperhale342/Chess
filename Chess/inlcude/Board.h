@@ -13,7 +13,7 @@ namespace chess {
 		Board(bool is_white);
 		void init();
 		bool can_move_piece(int x, int y);
-		void update_position(int x, int y);
+		void update_position(int x, int y, Piece* piece);
 		void intialize_top(PieceColor color);
 		void intialize_bottom(PieceColor color);
 

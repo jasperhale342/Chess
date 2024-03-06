@@ -25,8 +25,10 @@ namespace chess {
 		std::unordered_map <PieceType, SDL_Texture*, KeyHasherPiece> m_piece_textures;
 		bool isGrabbing;
 		Board chessBoard;
-		Coor piece_to_move;
+		SDL_Rect piece_to_move;
 		SDL_Texture* piece_to_move_texture;
+		Piece* piece_to_move_piece_type;
+		Coor piece_to_move_prev_pos;
 
 	public:
 		Screen();

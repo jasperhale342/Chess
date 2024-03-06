@@ -25,8 +25,11 @@ namespace chess {
 		return true;
 	}
 
-	void Board::update_position(int x, int y) {
-
+	void Board::update_position(int x, int y, Piece* piece) {
+		//check if a piece is already there, remove that piece etc
+		Coor coor = { x,y };
+		std::pair<Coor, Piece*> p = { coor , piece };
+		piece_positions.emplace(p);
 	}
 
 	void  Board::intialize_top(PieceColor color) {
