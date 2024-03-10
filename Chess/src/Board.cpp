@@ -39,6 +39,7 @@ namespace chess {
 	void Board::intialize_bottom(PieceColor color) {
 		// initialize king
 		Piece * kingPiece = new KingPiece(color, KING);
+		Piece* queenPiece = new KingPiece(BLACK, KING);
 		
 		int x = 0;
 		int y = 700;
@@ -59,6 +60,10 @@ namespace chess {
 		std::cout << (*piece_positions[kingCoor]).m_piece_color << std::endl;
 
 		// intialize Queen
+		Coor queenCoor = { 200,200 };
+		std::pair<Coor, Piece*> q = { queenCoor , queenPiece };
+		piece_positions.emplace(q);
+
 	
 	
 	};

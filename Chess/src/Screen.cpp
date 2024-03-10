@@ -87,14 +87,8 @@ namespace chess {
 		SDL_FreeSurface(boardSurface);
 
 		// king
-
-		SDL_Surface* piece = nullptr;
-		SDL_Texture* pieceTexture = nullptr;
-		piece = SDL_LoadBMP("assets/WhiteKing.bmp");
-		pieceTexture = SDL_CreateTextureFromSurface(m_renderer, piece);
-		m_piece_textures.emplace(KING, pieceTexture);
-		SDL_FreeSurface(piece);
-
+		loadAsset("assets/WhiteKing.bmp", KING);
+		//loadAsset("assets/WhiteKing.bmp", QUEEN);
 
 		// queen
 		// rook
@@ -109,6 +103,15 @@ namespace chess {
 	void Screen::clear() {
 
 		
+	}
+
+	void Screen::loadAsset(const char * path, const PieceType pieceType) {
+		SDL_Surface* asset = nullptr;
+		SDL_Texture* asset_texture = nullptr;
+		asset = SDL_LoadBMP(path);
+		asset_texture = SDL_CreateTextureFromSurface(m_renderer, asset);
+		m_piece_textures.emplace(pieceType, asset_texture);
+		SDL_FreeSurface(asset);
 	}
 
 	
@@ -155,7 +158,7 @@ namespace chess {
 		
 		return true;
 	}
-	void Screen::renderBoard() const {
+	void Screen::renderBoard()  {
 		SDL_RenderClear(m_renderer);
 		SDL_SetRenderTarget(m_renderer, m_board_texture);
 		SDL_RenderCopy(m_renderer, m_board_texture, &(Screen::BOARD_POSITION), &(Screen::BOARD_DIMENSION));
@@ -166,49 +169,26 @@ namespace chess {
 				piece = m_piece_textures.at((it->second)->m_piece_type);
 				//piece = m_piece_textures[(it->second)->m_piece_type];
 			
-
-			SDL_Rect pos = {(it->first).x, (it->first).y, 100, 100 };
-			SDL_RenderCopy(m_renderer, piece, &(Screen::PIECE_DIMENSION), &pos);
+				/*if ((it->second)->m_piece_color == BLACK) {
+					Uint8 r;
+					Uint8 g;
+					Uint8 b;
+					SDL_GetTextureColorMod(piece, &r, &b, &g);
+					r = 255 - r;
+					g = 255 - g;
+					b = 255 - b;
+					SDL_SetTextureColorMod(piece, r, g, b);
+				}*/
+				SDL_Rect pos = {(it->first).x, (it->first).y, 100, 100 };
+				SDL_RenderCopy(m_renderer, piece, NULL, &pos);
 			
 		}
-		SDL_RenderCopy(m_renderer, piece_to_move_texture, &(Screen::PIECE_DIMENSION), &piece_to_move);
+
+		SDL_RenderCopy(m_renderer, piece_to_move_texture, NULL, &piece_to_move);
 		SDL_SetRenderTarget(m_renderer, NULL);
 		SDL_RenderPresent(m_renderer);
 
-		/*
-		* positionRect.x = 0;
-    positionRect.y = 0;
-    positionRect.w = 800;
-    positionRect.h = 800;
-
-    dimensionRect.x = 0;
-    dimensionRect.y = 0;
-    dimensionRect.w = 800;
-    dimensionRect.h = 800;
-
-    piecePositionReact.x = 5;
-    piecePositionReact.y = 5;
-    piecePositionReact.w = 100;
-    piecePositionReact.h = 100;
-
-    pieceDimensionRect.x = 0;
-    pieceDimensionRect.y = 0;
-    pieceDimensionRect.w = 100;
-    pieceDimensionRect.h = 100;
-		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
-		SDL_RenderClear(renderer);
-		//SDL_RenderCopy(renderer, texture, &positionRect, &dimensionRect);
-		SDL_SetRenderTarget(renderer, boardTexture);
-		SDL_RenderCopy(renderer, boardTexture, &positionRect, &dimensionRect);
-		/*     SDL_SetRenderTarget(renderer, boardTexture);*/
-		/*
-		SDL_RenderCopy(renderer, pieceTexture, &piecePositionReact, &pieceDimensionRect);
-		//SDL_RenderCopy(renderer, pTripodTexture, &l_sourceRect, &l_sourceRect);
-		SDL_SetRenderTarget(renderer, NULL);
-		SDL_RenderPresent(renderer);
-
-		
-		*/
+	
 		
 
 	};

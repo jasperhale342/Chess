@@ -25,15 +25,16 @@ namespace chess {
 		std::unordered_map <PieceType, SDL_Texture*, KeyHasherPiece> m_piece_textures;
 		bool isGrabbing;
 		Board chessBoard;
-		SDL_Rect piece_to_move;
+		SDL_Rect piece_to_move = {0,0,100,100};
 		SDL_Texture* piece_to_move_texture;
 		Piece* piece_to_move_piece_type;
 		Coor piece_to_move_prev_pos;
+		void loadAsset(const char *, const PieceType);
 
 	public:
 		Screen();
 		void update();
-		void renderBoard() const;
+		void renderBoard() ;
 		bool init();
 		bool processSDLEvents();
 		bool canGrab(int, int);
