@@ -2,7 +2,6 @@
 #include <unordered_map>
 #include <array>
 #include <piece.h>
-#include <king_piece.h>
 #include <coor.h>
 #include <custom_hash_coor.h>
 

@@ -167,20 +167,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\bishop_piece.cpp" />
     <ClCompile Include="src\board.cpp" />
     <ClCompile Include="src\king_piece.cpp" />
+    <ClCompile Include="src\knight_piece.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\pond_piece.cpp" />
+    <ClCompile Include="src\queen_piece.cpp" />
+    <ClCompile Include="src\rook_piece.cpp" />
     <ClCompile Include="src\screen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inlcude\bishop_piece.h" />
     <ClInclude Include="inlcude\board.h" />
     <ClInclude Include="inlcude\coor.h" />
     <ClInclude Include="inlcude\custom_hash_coor.h" />
     <ClInclude Include="inlcude\custom_hash_piece.h" />
     <ClInclude Include="inlcude\king_piece.h" />
+    <ClInclude Include="inlcude\knight_piece.h" />
     <ClInclude Include="inlcude\piece.h" />
     <ClInclude Include="inlcude\piece_color.h" />
     <ClInclude Include="inlcude\piece_type.h" />
+    <ClInclude Include="inlcude\piece_type_and_color.h" />
+    <ClInclude Include="inlcude\pond_piece.h" />
+    <ClInclude Include="inlcude\queen_piece.h" />
+    <ClInclude Include="inlcude\rook_piece.h" />
     <ClInclude Include="inlcude\screen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

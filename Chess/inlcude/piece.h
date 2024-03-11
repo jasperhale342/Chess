@@ -14,7 +14,7 @@ namespace chess {
 		
 		Piece(PieceColor piece_color, PieceType piece_type) :m_piece_color(piece_color), m_piece_type(piece_type) {};
 		virtual ~Piece() {};
-		//virtual bool canMove(Coor coor) = 0;
+		virtual bool canMove(Coor coor) = 0;
 	
 		
 	};

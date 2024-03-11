@@ -2,10 +2,10 @@
 #include <Piece.h>
 
 namespace chess {
-	class KingPiece : public Piece {
+	class PondPiece : public Piece {
 	public:
-		KingPiece(PieceColor piece_color, PieceType piece_type);
-		~KingPiece();
+		PondPiece(PieceColor piece_color, PieceType piece_type);
+		~PondPiece();
 		virtual bool canMove(Coor coor) override;
 	};
 }

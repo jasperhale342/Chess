@@ -1,6 +1,11 @@
 #include <Board.h>
 #include <iostream>
-
+#include <king_piece.h>
+#include <queen_piece.h>
+#include <rook_piece.h>
+#include <bishop_piece.h>
+#include <knight_piece.h>
+#include <pond_piece.h>
 
 namespace chess {
 	Board::Board(bool is_white) {
@@ -39,7 +44,11 @@ namespace chess {
 	void Board::intialize_bottom(PieceColor color) {
 		// initialize king
 		Piece * kingPiece = new KingPiece(color, KING);
-		Piece* queenPiece = new KingPiece(BLACK, KING);
+		Piece* queenPiece = new QueenPiece(color, QUEEN);
+		Piece* rookPiece = new RookPiece(color, ROOK);
+		Piece* bishopPiece = new BishopPiece(color, BISHOP);
+		Piece* knightPiece = new KnightPiece(color, KNIGHT);
+		Piece* pondPiece = new PondPiece(color, POND);
 		
 		int x = 0;
 		int y = 700;
@@ -63,6 +72,8 @@ namespace chess {
 		Coor queenCoor = { 200,200 };
 		std::pair<Coor, Piece*> q = { queenCoor , queenPiece };
 		piece_positions.emplace(q);
+
+		//intialize Pond
 
 	
 	

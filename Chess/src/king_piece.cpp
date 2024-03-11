@@ -5,6 +5,8 @@ namespace chess {
 	KingPiece::KingPiece(PieceColor piece_color, PieceType piece_type) :Piece(piece_color, piece_type) {};
 	KingPiece::~KingPiece() {};
 	
-	//bool KingPiece::canMove(Coor coor) {}
+	bool KingPiece::canMove(Coor coor) {
+		return true;
+	}
 	
 }

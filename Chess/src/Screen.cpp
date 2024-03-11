@@ -4,8 +4,6 @@
 
 namespace chess {
 	const SDL_Rect Screen::BOARD_DIMENSION = {0,0,800,800};
-	const SDL_Rect Screen::BOARD_POSITION = { 0,0,800,800 };
-	const SDL_Rect Screen::PIECE_DIMENSION = { 0,0,100,100 };
 	Screen::Screen() : m_window(NULL),
 		m_renderer(NULL),
 		m_board_texture(nullptr),
@@ -30,7 +28,8 @@ namespace chess {
 				piece_to_move.x = (it->first).x;
 				piece_to_move.y = (it->first).y;
 				//piece_to_move_texture = m_piece_textures[(it->second)->m_piece_type];
-				piece_to_move_texture = m_piece_textures.at((it->second)->m_piece_type);
+				PieceTypeColor ptc = { (it->second)->m_piece_type, (it->second)->m_piece_color };
+				piece_to_move_texture = m_piece_textures.at(ptc);
 				std::cout << sizeof(SDL_Texture*) << std::endl;
 				piece_to_move_piece_type = chessBoard.piece_positions[it->first];
 				chessBoard.piece_positions.erase(it->first);
@@ -87,7 +86,8 @@ namespace chess {
 		SDL_FreeSurface(boardSurface);
 
 		// king
-		loadAsset("assets/WhiteKing.bmp", KING);
+		loadAsset("assets/kingWhite.bmp", KING, WHITE);
+		loadAsset("assets/pondWhite.bmp", POND, WHITE);
 		//loadAsset("assets/WhiteKing.bmp", QUEEN);
 
 		// queen
@@ -105,12 +105,15 @@ namespace chess {
 		
 	}
 
-	void Screen::loadAsset(const char * path, const PieceType pieceType) {
+	void Screen::loadAsset(const char * path, const PieceType pieceType, const PieceColor pieceColor) {
 		SDL_Surface* asset = nullptr;
 		SDL_Texture* asset_texture = nullptr;
 		asset = SDL_LoadBMP(path);
 		asset_texture = SDL_CreateTextureFromSurface(m_renderer, asset);
-		m_piece_textures.emplace(pieceType, asset_texture);
+		std::cout << "here" << std::endl;
+		PieceTypeColor pieceTypeColor = { pieceType, pieceColor };
+		std::cout << "here again" << std::endl;
+		m_piece_textures.emplace(pieceTypeColor, asset_texture);
 		SDL_FreeSurface(asset);
 	}
 
@@ -161,24 +164,15 @@ namespace chess {
 	void Screen::renderBoard()  {
 		SDL_RenderClear(m_renderer);
 		SDL_SetRenderTarget(m_renderer, m_board_texture);
-		SDL_RenderCopy(m_renderer, m_board_texture, &(Screen::BOARD_POSITION), &(Screen::BOARD_DIMENSION));
+		SDL_RenderCopy(m_renderer, m_board_texture, NULL, &(Screen::BOARD_DIMENSION));
 		SDL_Texture* piece = nullptr;
 		
 		for (auto it = chessBoard.piece_positions.begin(); it != chessBoard.piece_positions.end(); ++it) {
-			
-				piece = m_piece_textures.at((it->second)->m_piece_type);
+
+
+			PieceTypeColor ptc = { (it->second)->m_piece_type, (it->second)->m_piece_color };
+				piece = m_piece_textures.at(ptc);
 				//piece = m_piece_textures[(it->second)->m_piece_type];
-			
-				/*if ((it->second)->m_piece_color == BLACK) {
-					Uint8 r;
-					Uint8 g;
-					Uint8 b;
-					SDL_GetTextureColorMod(piece, &r, &b, &g);
-					r = 255 - r;
-					g = 255 - g;
-					b = 255 - b;
-					SDL_SetTextureColorMod(piece, r, g, b);
-				}*/
 				SDL_Rect pos = {(it->first).x, (it->first).y, 100, 100 };
 				SDL_RenderCopy(m_renderer, piece, NULL, &pos);
 			

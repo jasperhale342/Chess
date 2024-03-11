@@ -15,21 +15,19 @@ namespace chess {
 		const static int SCREEN_WIDTH = 800;
 		const static int SCREEN_HEIGHT = 800;
 		const static SDL_Rect BOARD_DIMENSION;
-		const static SDL_Rect PIECE_DIMENSION;
-		const static SDL_Rect BOARD_POSITION;
 		
 	private:
 		SDL_Window* m_window;
 		SDL_Renderer* m_renderer;
 		SDL_Texture* m_board_texture;
-		std::unordered_map <PieceType, SDL_Texture*, KeyHasherPiece> m_piece_textures;
+		std::unordered_map <PieceTypeColor, SDL_Texture*, KeyHasherPiece> m_piece_textures;
 		bool isGrabbing;
 		Board chessBoard;
 		SDL_Rect piece_to_move = {0,0,100,100};
 		SDL_Texture* piece_to_move_texture;
 		Piece* piece_to_move_piece_type;
 		Coor piece_to_move_prev_pos;
-		void loadAsset(const char *, const PieceType);
+		void loadAsset(const char *, const PieceType, const PieceColor);
 
 	public:
 		Screen();
