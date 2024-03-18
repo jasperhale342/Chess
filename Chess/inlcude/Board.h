@@ -13,8 +13,9 @@ namespace chess {
 		void init();
 		bool can_move_piece(int x, int y);
 		void update_position(int x, int y, Piece* piece);
-		void intialize_top(PieceColor color);
-		void intialize_bottom(PieceColor color);
+		void intialize_pieces(PieceColor color, bool is_bottom);
+		void create_piece(int x, int y, Piece*);
+		void initialize_ponds(int y, PieceColor color);
 
 		
 

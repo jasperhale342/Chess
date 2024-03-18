@@ -9,36 +9,35 @@ namespace chess {
 		m_board_texture(nullptr),
 		m_piece_textures(),
 		isGrabbing(false),
-		chessBoard(true)
+		chessBoard(true),
+		piece_to_move_texture(nullptr),
+		piece_to_move_piece_type(nullptr)
 		 {
 		
 	
 	}
 	bool Screen::canGrab(int mouseX, int mouseY)
 	{
-		// can probably use mouseX and mouseY as an offset so you dont have to go through the entire dictionary
+		int x = mouseX - (mouseX % 100);
+		int y = mouseY - (mouseY % 100);
+		Coor coor = { x,y };
+		auto it = chessBoard.piece_positions.find
+		(coor);
+		if (it != chessBoard.piece_positions.end()) {
+			//might need to change this later
+			piece_to_move_prev_pos = it->first;
+			piece_to_move.x = (it->first).x;
+			piece_to_move.y = (it->first).y;
+			//piece_to_move_texture = m_piece_textures[(it->second)->m_piece_type];
+			PieceTypeColor ptc = { (it->second)->m_piece_type, (it->second)->m_piece_color };
+			piece_to_move_texture = m_piece_textures.at(ptc);
 		
-		std::cout << mouseX << ", " << mouseY << std::endl;
-		for (auto it = chessBoard.piece_positions.begin(); it != chessBoard.piece_positions.end(); ++it) {
-			std::cout << "printing coors" << std::endl;
-			std::cout << it->first;			//cout << "position: " << position[0] << ", " << position[1] << endl;
-			if (abs(mouseX - (it->first).x) < 50 && abs(mouseY - (it->first).y) < 50) {
-				//might need to change this later
-				piece_to_move_prev_pos = it->first;
-				piece_to_move.x = (it->first).x;
-				piece_to_move.y = (it->first).y;
-				//piece_to_move_texture = m_piece_textures[(it->second)->m_piece_type];
-				PieceTypeColor ptc = { (it->second)->m_piece_type, (it->second)->m_piece_color };
-				piece_to_move_texture = m_piece_textures.at(ptc);
-				std::cout << sizeof(SDL_Texture*) << std::endl;
-				piece_to_move_piece_type = chessBoard.piece_positions[it->first];
-				chessBoard.piece_positions.erase(it->first);
-				return true;
-			}
+			piece_to_move_piece_type = chessBoard.piece_positions[it->first];
+
+			//check if it would delete the piece
+			chessBoard.piece_positions.erase(it->first);
+			return true;
 		}
-
-
-		
 		return false;
 	}
 	int Screen::calculateSlot(int x) {
@@ -85,16 +84,21 @@ namespace chess {
 		m_board_texture = SDL_CreateTextureFromSurface(m_renderer, boardSurface);
 		SDL_FreeSurface(boardSurface);
 
-		// king
+		// white pieces
 		loadAsset("assets/kingWhite.bmp", KING, WHITE);
+		loadAsset("assets/queenWhite.bmp", QUEEN, WHITE);
+		loadAsset("assets/rookWhite.bmp", ROOK, WHITE);
+		loadAsset("assets/bishopWhite.bmp", BISHOP, WHITE);
+		loadAsset("assets/knightWhite.bmp", KNIGHT, WHITE);
 		loadAsset("assets/pondWhite.bmp", POND, WHITE);
-		//loadAsset("assets/WhiteKing.bmp", QUEEN);
-
-		// queen
-		// rook
-		// bishop
-		// knight
-		// pond
+		
+		//black pieces
+		loadAsset("assets/kingBlack.bmp", KING, BLACK);
+		loadAsset("assets/queenBlack.bmp", QUEEN, BLACK);
+		loadAsset("assets/rookBlack.bmp", ROOK, BLACK);
+		loadAsset("assets/bishopBlack.bmp", BISHOP, BLACK);
+		loadAsset("assets/knightBlack.bmp", KNIGHT, BLACK);
+		loadAsset("assets/pondBlack.bmp", POND, BLACK);
 
 		return true;
 	}
@@ -110,9 +114,7 @@ namespace chess {
 		SDL_Texture* asset_texture = nullptr;
 		asset = SDL_LoadBMP(path);
 		asset_texture = SDL_CreateTextureFromSurface(m_renderer, asset);
-		std::cout << "here" << std::endl;
 		PieceTypeColor pieceTypeColor = { pieceType, pieceColor };
-		std::cout << "here again" << std::endl;
 		m_piece_textures.emplace(pieceTypeColor, asset_texture);
 		SDL_FreeSurface(asset);
 	}
@@ -126,7 +128,7 @@ namespace chess {
 			}
 			if (event.type == SDL_MOUSEBUTTONUP && isGrabbing) {
 				if (event.button.button == SDL_BUTTON_LEFT) {
-					if (chessBoard.can_move_piece(calculateSlot(event.motion.x), calculateSlot(event.motion.y))) {
+					if (piece_to_move_piece_type->can_move(calculateSlot(event.motion.x), calculateSlot(event.motion.y))) {
 						std::cout << "placing piece" << std::endl;
 						chessBoard.update_position(calculateSlot(event.motion.x), calculateSlot(event.motion.y), piece_to_move_piece_type);
 						isGrabbing = false;
@@ -139,8 +141,8 @@ namespace chess {
 				}
 			}
 			if (event.type == SDL_MOUSEMOTION && isGrabbing) {
-				piece_to_move.x = event.motion.x;
-				piece_to_move.y = event.motion.y;
+				piece_to_move.x = event.motion.x-40;
+				piece_to_move.y = event.motion.y-40;
 			}
 			if (event.type == SDL_MOUSEBUTTONDOWN && !isGrabbing) {
 				std::cout << "left is being pressed" << std::endl;

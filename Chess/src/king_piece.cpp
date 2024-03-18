@@ -2,10 +2,10 @@
 #include <coor.h>
 
 namespace chess {
-	KingPiece::KingPiece(PieceColor piece_color, PieceType piece_type) :Piece(piece_color, piece_type) {};
+	KingPiece::KingPiece(PieceColor piece_color, PieceType piece_type, Coor piece_position) :Piece(piece_color, piece_type, piece_position) {};
 	KingPiece::~KingPiece() {};
 	
-	bool KingPiece::canMove(Coor coor) {
+	bool KingPiece::can_move(int x, int y) {
 		return true;
 	}
 	
