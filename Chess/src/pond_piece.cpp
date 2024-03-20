@@ -7,7 +7,7 @@ namespace chess {
 
 	bool PondPiece::can_move(int x, int y) {
 		// move forward
-		if (m_position.x )
+		//if (m_position.x )
 		return true;
 	}
 

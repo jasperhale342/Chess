@@ -1,14 +1,18 @@
 #define BOOST_TEST_MODULE MyTest
 #include <boost/test/included/unit_test.hpp> //single-header
-#include "../MyProgram/MyClass.h" // project being tested
+#include <pond_piece.h>
 #include <string>
+using namespace chess;
+namespace chess_tests {
+    BOOST_AUTO_TEST_CASE(move_pond_forward)
+    {
+        std::string expected_value = "Bill";
+        Piece* pond = new PondPiece(WHITE, POND, { 1,1});
 
-BOOST_AUTO_TEST_CASE(my_boost_test)
-{
-    std::string expected_value = "Bill";
 
-    // assume MyClass is defined in MyClass.h
-    // and get_value() has public accessibility
-    MyClass mc;
-    BOOST_CHECK(expected_value == mc.get_value());
+        // assume MyClass is defined in MyClass.h
+        // and get_value() has public accessibility
+        BOOST_CHECK(pond->can_move(1,1) == true);
+        delete pond;
+    }
 }
