@@ -29,7 +29,7 @@ namespace chess {
 			piece_to_move.x = (it->first).x;
 			piece_to_move.y = (it->first).y;
 			//piece_to_move_texture = m_piece_textures[(it->second)->m_piece_type];
-			PieceTypeColor ptc = { (it->second)->m_piece_type, (it->second)->m_piece_color };
+			PieceTypeColor ptc = { (it->second)->get_piece_type(), (it->second)->m_piece_color};
 			piece_to_move_texture = m_piece_textures.at(ptc);
 		
 			piece_to_move_piece_type = chessBoard.piece_positions[it->first];
@@ -128,7 +128,8 @@ namespace chess {
 			}
 			if (event.type == SDL_MOUSEBUTTONUP && isGrabbing) {
 				if (event.button.button == SDL_BUTTON_LEFT) {
-					if (piece_to_move_piece_type->can_move(calculateSlot(event.motion.x), calculateSlot(event.motion.y))) {
+
+					if (chessBoard.can_move_piece(calculateSlot(event.motion.x), calculateSlot(event.motion.y), piece_to_move_piece_type) ){
 						std::cout << "placing piece" << std::endl;
 						chessBoard.update_position(calculateSlot(event.motion.x), calculateSlot(event.motion.y), piece_to_move_piece_type);
 						isGrabbing = false;
@@ -136,6 +137,9 @@ namespace chess {
 
 						piece_to_move_texture = nullptr;
 						piece_to_move_piece_type = nullptr;
+					}
+					else {
+						//move piece back to previous position
 					}
 					
 				}
@@ -172,7 +176,7 @@ namespace chess {
 		for (auto it = chessBoard.piece_positions.begin(); it != chessBoard.piece_positions.end(); ++it) {
 
 
-			PieceTypeColor ptc = { (it->second)->m_piece_type, (it->second)->m_piece_color };
+			PieceTypeColor ptc = { (it->second)->get_piece_type(), (it->second)->m_piece_color};
 				piece = m_piece_textures.at(ptc);
 				//piece = m_piece_textures[(it->second)->m_piece_type];
 				SDL_Rect pos = {(it->first).x, (it->first).y, 100, 100 };

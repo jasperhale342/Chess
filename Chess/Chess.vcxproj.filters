@@ -42,51 +42,63 @@
     <ClCompile Include="src\knight_piece.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\ranks.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_pond_piece.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inlcude\Screen.h">
+    <ClInclude Include="include\screen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\Board.h">
+    <ClInclude Include="include\board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\coor.h">
+    <ClInclude Include="include\coor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\king_piece.h">
+    <ClInclude Include="include\king_piece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\piece.h">
+    <ClInclude Include="include\piece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\piece_color.h">
+    <ClInclude Include="include\piece_color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\piece_type.h">
+    <ClInclude Include="include\piece_type.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\custom_hash_coor.h">
+    <ClInclude Include="include\custom_hash_coor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\custom_hash_piece.h">
+    <ClInclude Include="include\custom_hash_piece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\piece_type_and_color.h">
+    <ClInclude Include="include\piece_type_and_color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\queen_piece.h">
+    <ClInclude Include="include\queen_piece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\rook_piece.h">
+    <ClInclude Include="include\rook_piece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\bishop_piece.h">
+    <ClInclude Include="include\bishop_piece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\knight_piece.h">
+    <ClInclude Include="include\knight_piece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inlcude\pond_piece.h">
+    <ClInclude Include="include\pond_piece.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\files.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

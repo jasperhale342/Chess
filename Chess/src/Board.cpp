@@ -25,14 +25,27 @@ namespace chess {
 	void Board::init() {
 
 	}
-	bool Board::can_move_piece(int x, int y) {
+	bool Board::can_move_piece(int x, int y, Piece * piece) {
+		if (piece->can_move(x, y) && ! is_same_color_piece_there({x,y})) {
+			return true;
+		}
+		return false;
+	}
+	bool Board::is_same_color_piece_there(Coor coor) {
+		
+		auto it = piece_positions.find(coor);
+		if (it == piece_positions.end()) {
+			return false;
+		}
 		return true;
 	}
 
 	void Board::update_position(int x, int y, Piece* piece) {
 		//check if a piece is already there, remove that piece etc
+		
 		Coor coor = { x,y };
 		std::pair<Coor, Piece*> p = { coor , piece };
+		piece->update_position(x, y);
 		piece_positions.emplace(p);
 	}
 
@@ -51,28 +64,28 @@ namespace chess {
 			
 		}
 		//initialize king piece
-		Piece* kingPiece = new KingPiece(color, KING, {400,y});
+		Piece* kingPiece = new KingPiece(color, {400,y});
 		create_piece(400, y, kingPiece);
 		
 		//initialize queen piece
-		Piece* queenPiece = new QueenPiece(color, QUEEN, {300, y});
+		Piece* queenPiece = new QueenPiece(color,  {300, y});
 		create_piece(300, y, queenPiece);
 
 		//initialize rook pieces
-		Piece* rookLeftPiece = new RookPiece(color, ROOK, {0,y});
-		Piece* rookRightPiece = new RookPiece(color, ROOK, {700, y});
+		Piece* rookLeftPiece = new RookPiece(color, {0,y});
+		Piece* rookRightPiece = new RookPiece(color, {700, y});
 		create_piece(0, y, rookLeftPiece);
 		create_piece(700, y, rookRightPiece);
 
 		//initialize Knights
-		Piece* knightLeftPiece = new KnightPiece(color, KNIGHT, {100, y});
-		Piece* knightRightPiece = new KnightPiece(color, KNIGHT, {600, y});
+		Piece* knightLeftPiece = new KnightPiece(color,  {100, y});
+		Piece* knightRightPiece = new KnightPiece(color, {600, y});
 		create_piece(100, y, knightLeftPiece);
 		create_piece(600, y, knightRightPiece);
 
 		//intialize Bishops
-		Piece* bishopLeftPiece = new BishopPiece(color, BISHOP, {200,y});
-		Piece* bishopRightPiece = new BishopPiece(color, BISHOP, {500,y});
+		Piece* bishopLeftPiece = new BishopPiece(color, {200,y});
+		Piece* bishopRightPiece = new BishopPiece(color, {500,y});
 		create_piece(200, y, bishopLeftPiece);
 		create_piece(500, y, bishopLeftPiece);
 
@@ -94,7 +107,7 @@ namespace chess {
 		int x = 0;
 		for (int i = 0; i < 8; ++i) {
 			Coor coor = { x, y };
-			Piece* pond = new PondPiece(color, POND, {x,y});
+			Piece* pond = new PondPiece(color,  {x,y});
 			std::pair<Coor, Piece*> pondPair = { coor ,  pond };
 			piece_positions.emplace(pondPair);
 			x += 100;

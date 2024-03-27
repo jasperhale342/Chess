@@ -4,8 +4,9 @@
 namespace chess {
 	class KingPiece : public Piece {
 	public:
-		KingPiece(PieceColor piece_color, PieceType piece_type, Coor piece_position);
+		KingPiece(PieceColor piece_color, Coor piece_position);
 		~KingPiece();
 		virtual bool can_move(int, int) override;
+		virtual void update_position(int, int) override;
 	};
 }
