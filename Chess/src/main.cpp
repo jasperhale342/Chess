@@ -13,7 +13,7 @@ using namespace chess;
 int main(int argc, char* args[])
 {
    
-    Board chessBoard(true);
+    //Board chessBoard(true);
     Screen screen;
     if (!screen.init()) {
         return 0;

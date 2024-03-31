@@ -51,6 +51,9 @@
     <ClCompile Include="tests\test_board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\promote_pond_modal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\screen.h">
@@ -99,6 +102,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\files.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\promote_pond_modal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\promote_pond_event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

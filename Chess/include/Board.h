@@ -17,7 +17,11 @@ namespace chess {
 		void intialize_pieces(PieceColor color, bool is_bottom);
 		void create_piece(int x, int y, Piece*);
 		void initialize_ponds(int y, PieceColor color);
-
+		bool m_is_white_turn = true;
+		void promote_pond();
+	private:
+		PieceColor m_player_1; 
+		PieceColor m_player_2;
 		
 
 	};

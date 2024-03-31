@@ -7,6 +7,7 @@
 #include <iostream>
 #include <custom_hash_coor.h>
 #include <board.h>
+#include <promote_pond_modal.h>
 
 namespace chess {
 	class Screen
@@ -15,6 +16,7 @@ namespace chess {
 		const static int SCREEN_WIDTH = 800;
 		const static int SCREEN_HEIGHT = 800;
 		const static SDL_Rect BOARD_DIMENSION;
+
 		
 	private:
 		SDL_Window* m_window;
@@ -28,6 +30,9 @@ namespace chess {
 		Piece* piece_to_move_piece_type;
 		Coor piece_to_move_prev_pos;
 		void loadAsset(const char *, const PieceType, const PieceColor);
+		void translate_piece_positions() {
+			
+		};
 
 	public:
 		Screen();

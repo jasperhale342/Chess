@@ -6,6 +6,7 @@
 #include <bishop_piece.h>
 #include <knight_piece.h>
 #include <pond_piece.h>
+#include <SDL_events.h>
 
 namespace chess {
 	Board::Board(bool is_white) {
@@ -16,8 +17,8 @@ namespace chess {
 			
 		}
 		else {
-			// initialize_bottom(Black)
-			// intialize_top(White)
+			intialize_pieces(BLACK, true);
+			intialize_pieces(WHITE, false);
 		}
 
 	}
@@ -27,6 +28,16 @@ namespace chess {
 	}
 	bool Board::can_move_piece(int x, int y, Piece * piece) {
 		if (piece->can_move(x, y) && ! is_same_color_piece_there({x,y})) {
+			if (piece->get_piece_type() == POND && piece->m_position.y == 0) {
+				SDL_Event event;
+				SDL_memset(&event, 0, sizeof(event)); /* or SDL_zero(event) */
+				event.type = myEventType;
+				event.user.code = my_event_code;
+				event.user.data1 = significant_data;
+				event.user.data2 = 0;
+				SDL_PushEvent(&event);
+				
+			}
 			return true;
 		}
 		return false;

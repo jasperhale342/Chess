@@ -253,6 +253,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug UnitTests|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="src\pond_piece.cpp" />
+    <ClCompile Include="src\promote_pond_modal.cpp" />
     <ClCompile Include="src\queen_piece.cpp" />
     <ClCompile Include="src\rook_piece.cpp" />
     <ClCompile Include="src\screen.cpp" />
@@ -280,6 +281,8 @@
     <ClInclude Include="include\piece_type.h" />
     <ClInclude Include="include\piece_type_and_color.h" />
     <ClInclude Include="include\pond_piece.h" />
+    <ClInclude Include="include\promote_pond_event.h" />
+    <ClInclude Include="include\promote_pond_modal.h" />
     <ClInclude Include="include\queen_piece.h" />
     <ClInclude Include="include\rook_piece.h" />
     <ClInclude Include="include\screen.h" />

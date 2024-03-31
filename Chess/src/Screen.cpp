@@ -145,8 +145,8 @@ namespace chess {
 				}
 			}
 			if (event.type == SDL_MOUSEMOTION && isGrabbing) {
-				piece_to_move.x = event.motion.x-40;
-				piece_to_move.y = event.motion.y-40;
+				piece_to_move.x = event.motion.x-50;
+				piece_to_move.y = event.motion.y-50;
 			}
 			if (event.type == SDL_MOUSEBUTTONDOWN && !isGrabbing) {
 				std::cout << "left is being pressed" << std::endl;
@@ -161,6 +161,12 @@ namespace chess {
 
 				}
 
+			}
+			if (event.type == PROMTE_POND) {
+				// open dialog window for player to select a new piece
+				// proccess the piece selection
+				// delete pond at that position
+				// place the new piece where the pond was
 			}
 		}
 	
