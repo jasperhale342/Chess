@@ -80,7 +80,7 @@
     <ClInclude Include="include\custom_hash_coor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\custom_hash_piece.h">
+    <ClInclude Include="include\custom_hash_piece_type_color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\piece_type_and_color.h">
@@ -107,7 +107,10 @@
     <ClInclude Include="include\promote_pond_modal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\promote_pond_event.h">
+    <ClInclude Include="include\board_piece_move_response.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\custom_hash_piece_type.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

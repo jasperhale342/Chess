@@ -13,7 +13,7 @@ namespace chess {
 
 		if (is_white) {
 			intialize_pieces(WHITE, true);
-			intialize_pieces(BLACK, false);
+			//intialize_pieces(BLACK, false);
 			
 		}
 		else {
@@ -26,21 +26,16 @@ namespace chess {
 	void Board::init() {
 
 	}
-	bool Board::can_move_piece(int x, int y, Piece * piece) {
+	BOARD_RESPONSE Board::can_move_piece(int x, int y, Piece * piece) {
 		if (piece->can_move(x, y) && ! is_same_color_piece_there({x,y})) {
-			if (piece->get_piece_type() == POND && piece->m_position.y == 0) {
-				SDL_Event event;
-				SDL_memset(&event, 0, sizeof(event)); /* or SDL_zero(event) */
-				event.type = myEventType;
-				event.user.code = my_event_code;
-				event.user.data1 = significant_data;
-				event.user.data2 = 0;
-				SDL_PushEvent(&event);
+			if (piece->get_piece_type() == POND && piece->m_position.y == 100) {
+				
+				return BOARD_RESPONSE::PROMOTE_POND;
 				
 			}
-			return true;
+			return BOARD_RESPONSE::YES;
 		}
-		return false;
+		return BOARD_RESPONSE::NO;
 	}
 	bool Board::is_same_color_piece_there(Coor coor) {
 		
@@ -110,8 +105,41 @@ namespace chess {
 	void Board::create_piece(int x, int y, Piece* piece) {
 
 		Coor coor = { x,y };
-		std::pair<Coor, Piece*> pairRookRight = { coor ,  piece };
-		piece_positions.emplace(pairRookRight);
+		std::pair<Coor, Piece*> coorPiece = { coor ,  piece };
+		piece_positions.emplace(coorPiece);
+
+	}
+	void Board::remove_piece(Coor coor) {
+		piece_positions.erase(coor);
+	}
+	Piece* Board::get_piece(Coor coor) {
+		return piece_positions.at(coor);
+	}
+	void Board::create_piece_from_pond(int x, int y, PieceType pieceType, PieceColor color) {
+		piece_positions.erase({ x, y });
+		Piece* piece = nullptr;
+		switch (pieceType) {
+		case QUEEN:
+			piece = new QueenPiece(color, { x, y });
+			break;
+
+		case ROOK:
+			piece = new RookPiece(color, { x, y });
+			break;	
+		
+		case BISHOP:
+			piece = new RookPiece(color, { x, y });
+			break;
+
+
+		default:
+			//knight
+			piece = new KnightPiece(color, { x, y });
+		}
+		
+		Coor coor = { x,y };
+		std::pair<Coor, Piece*> coorPiece = { coor ,  piece };
+		piece_positions.emplace(coorPiece);
 
 	}
 	void Board::initialize_ponds(int y, PieceColor color) {

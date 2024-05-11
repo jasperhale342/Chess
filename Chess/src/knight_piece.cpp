@@ -2,7 +2,7 @@
 #include <coor.h>
 
 namespace chess {
-	KnightPiece::KnightPiece(PieceColor piece_color, Coor piece_position) :Piece(piece_color, piece_position) {};
+	KnightPiece::KnightPiece(PieceColor piece_color, Coor piece_position) :Piece(piece_color, piece_position) { m_piece_type = KNIGHT; };
 	KnightPiece::~KnightPiece() {};
 
 	bool KnightPiece::can_move(int x, int y) {

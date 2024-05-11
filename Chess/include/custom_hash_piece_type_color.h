@@ -1,7 +1,7 @@
 #pragma once
 #include<unordered_set>
 #include <piece_type_and_color.h>
-struct KeyHasherPiece
+struct PieceTypeColorKeyHasher
 {
     std::size_t operator()(const PieceTypeColor& k) const
     {

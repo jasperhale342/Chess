@@ -270,9 +270,11 @@
   <ItemGroup>
     <ClInclude Include="include\bishop_piece.h" />
     <ClInclude Include="include\board.h" />
+    <ClInclude Include="include\board_piece_move_response.h" />
     <ClInclude Include="include\coor.h" />
     <ClInclude Include="include\custom_hash_coor.h" />
-    <ClInclude Include="include\custom_hash_piece.h" />
+    <ClInclude Include="include\custom_hash_piece_type.h" />
+    <ClInclude Include="include\custom_hash_piece_type_color.h" />
     <ClInclude Include="include\files.h" />
     <ClInclude Include="include\king_piece.h" />
     <ClInclude Include="include\knight_piece.h" />
@@ -281,7 +283,6 @@
     <ClInclude Include="include\piece_type.h" />
     <ClInclude Include="include\piece_type_and_color.h" />
     <ClInclude Include="include\pond_piece.h" />
-    <ClInclude Include="include\promote_pond_event.h" />
     <ClInclude Include="include\promote_pond_modal.h" />
     <ClInclude Include="include\queen_piece.h" />
     <ClInclude Include="include\rook_piece.h" />
