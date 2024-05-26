@@ -1,7 +1,7 @@
 #pragma once
 #include<unordered_set>
 #include <coor.h>
-struct KeyHasherCoor
+struct CoorKeyHasher
 {
     std::size_t operator()(const Coor& k) const
     {

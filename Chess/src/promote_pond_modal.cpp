@@ -1,4 +1,5 @@
 #include <promote_pond_modal.h>
+#include <iostream>
 namespace chess {
 	bool PromtePondModal::init() {
 		if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -29,12 +30,11 @@ namespace chess {
 
 		// white pieces
 
-		
+		SDL_RenderClear(m_renderer);
 		loadAsset("assets/QueenWhite.bmp", QUEEN, 0, 0);
 		loadAsset("assets/RookWhite.bmp", ROOK, 0, 100);
 		loadAsset("assets/BishopWhite.bmp", BISHOP, 100, 0);
 		loadAsset("assets/KnightWhite.bmp", KNIGHT, 100, 100);
-		render_textures();
 
 		SDL_HideWindow(m_window);
 
@@ -45,30 +45,15 @@ namespace chess {
 		SDL_Texture* asset_texture = nullptr;
 		asset = SDL_LoadBMP(path);
 		asset_texture = SDL_CreateTextureFromSurface(m_renderer, asset);
-		SDL_Rect pos = { x,y, 100, 100 };
+
+		Coor pos = { x, y };
 		m_piece_positions.emplace(pos, pieceType);
 		m_piece_textures.emplace(pieceType, asset_texture);
 		SDL_FreeSurface(asset);
+		SDL_Rect pos2 = { x,y, 100, 100 };
+		SDL_RenderCopy(m_renderer, asset_texture, NULL, &pos2);
 	}
 
-	void PromtePondModal::render_textures() {
-		SDL_RenderClear(m_renderer);
-		
-		SDL_Texture* piece = nullptr;
-		int i = 0;
-		int x = 0x1;
-		int y = 0x2;
-
-		for (auto it = m_piece_textures.begin(); it != m_piece_textures.end(); ++it) {
-
-			SDL_Rect pos = {(i & x)*100, (i & y) * 50, 100, 100 };
-			SDL_RenderCopy(m_renderer, it->second, NULL, &pos);
-			i++;
-			
-		}
-
-
-	}
 	void PromtePondModal::display(int x, int y) {
 		SDL_SetWindowPosition(m_window, x, y);
 		SDL_ShowWindow(m_window);
@@ -90,7 +75,9 @@ namespace chess {
 	}
 
 	PieceType  PromtePondModal::select_piece(int x, int y) {
-		return m_piece_positions.at({ x, y });
+		std::cout << "from Pond Modal: Selecting piece at, " << x << ", " << y << std::endl;
+		PieceType piece = m_piece_positions.at({ x, y });
+		return piece;
 
 	}
 	

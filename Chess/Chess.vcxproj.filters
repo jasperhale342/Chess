@@ -54,6 +54,15 @@
     <ClCompile Include="src\promote_pond_modal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tests\test_hashers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_king.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\screen.h">

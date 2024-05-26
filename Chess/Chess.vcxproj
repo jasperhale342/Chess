@@ -104,7 +104,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug UnitTests|Win32'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectDir)inlcude;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <ReferencePath>C:\Program Files\boost_1_82_0\libs;$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Program Files\boost_1_82_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
@@ -119,7 +121,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug UnitTests|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectDir)inlcude;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <ReferencePath>C:\Program Files\boost_1_82_0\libs;$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Program Files\boost_1_82_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
@@ -150,14 +154,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SDL\include;$(ProjectDir)include;$(SolutionDir)vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SDL\include;$(ProjectDir)include;C:\Program Files\boost_1_82_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL\lib;$(SolutionDir)vcpkg_installed\x64-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>x64\SDL2.lib;boost_unit_test_framework-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL\lib;C:\Program Files\boost_1_82_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>x64\SDL2.lib;libboost_unit_test_framework-vc143-mt-gd-x64-1_82.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
@@ -208,14 +212,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SDL\include;$(ProjectDir)include;$(SolutionDir)vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SDL\include;$(ProjectDir)include;C:\Program Files\boost_1_82_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL\lib;$(SolutionDir)vcpkg_installed\x64-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>x64\SDL2.lib;boost_unit_test_framework-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL\lib;C:\Program Files\boost_1_82_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>x64\SDL2.lib;libboost_unit_test_framework-vc143-mt-gd-x64-1_82.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
@@ -257,7 +261,22 @@
     <ClCompile Include="src\queen_piece.cpp" />
     <ClCompile Include="src\rook_piece.cpp" />
     <ClCompile Include="src\screen.cpp" />
-    <ClCompile Include="tests\test_board.cpp" />
+    <ClCompile Include="tests\test_board.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="tests\test_hashers.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="tests\test_king.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="tests\test_main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="tests\test_pond_piece.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug UnitTests|Win32'">false</ExcludedFromBuild>

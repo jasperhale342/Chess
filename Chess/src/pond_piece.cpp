@@ -15,6 +15,7 @@ namespace chess {
 			return true;
 		}
 		else if (m_position.y - y == 200 && m_position.x == x && is_first_move) {
+			is_en_passantable = true;
 			return true;
 		}
 		else if (
@@ -27,6 +28,7 @@ namespace chess {
 	void PondPiece::update_position(int x, int y) {
 		m_position.x = x;
 		m_position.y = y;
+		//might be better to have this as a seperate function that way you're not updating it every time a pond piece moves
 		is_first_move = false;
 		
 	}

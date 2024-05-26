@@ -22,7 +22,7 @@ namespace chess {
 		int y = mouseY - (mouseY % 100);
 		Coor coor = { x,y };
 		auto it = chessBoard.get_piece(coor);
-		if (it != (Piece *)std::end) {
+		if (it != chessBoard.get_end_iterator()){
 			//might need to change this later
 			piece_to_move_prev_pos = it->first;
 			piece_to_move.x = (it->first).x;
@@ -31,7 +31,7 @@ namespace chess {
 			PieceTypeColor ptc = { (it->second)->get_piece_type(), (it->second)->m_piece_color};
 			piece_to_move_texture = m_piece_textures.at(ptc);
 		
-			piece_to_move_piece_type = chessBoard.piece_positions[it->first];
+			piece_to_move_piece_type = chessBoard.find_piece(it->first);
 
 			//check if it would delete the piece
 			chessBoard.remove_piece(it->first);
@@ -128,6 +128,7 @@ namespace chess {
 		int mouseX_slot = 0;
 		int mouseY_slot = 0;
 		while (SDL_PollEvent(&event)) {
+		
 			if (event.type == SDL_WINDOWEVENT
 				&& event.window.event == SDL_WINDOWEVENT_CLOSE) {
 				return false;
@@ -136,14 +137,18 @@ namespace chess {
 				mouseX_slot = calculateSlot(event.motion.x);
 				mouseY_slot = calculateSlot(event.motion.y);
 				PieceType pieceType = promote_pond_modal.select_piece(mouseX_slot, mouseY_slot);
-				std::cout << mouseX_slot << ", " << mouseY_slot  << std::endl;
+				std::cout << "This is where the pond will be placed:" << mouseX_slot << ", " << mouseY_slot << std::endl;
 				PieceColor color = WHITE;
 				if (!chessBoard.m_is_white_turn) {
 					color = BLACK;
 				}
-				chessBoard.create_piece_from_pond(piece_to_move_prev_pos.x, piece_to_move.y, pieceType, color);
+				//should probably be one function called promote pond
+				chessBoard.remove_piece({ piece_to_move_prev_pos.x , piece_to_move_prev_pos.y });
+				chessBoard.create_piece_from_pond(piece_to_move_prev_pos.x, piece_to_move_prev_pos.y, pieceType, color);
 				promote_pond_modal.close_display();
-				//promoting_pond = false;
+				SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
+				promoting_pond = false;
+				continue;
 			}
 
 			if (event.type == SDL_MOUSEBUTTONUP && isGrabbing) {
@@ -152,7 +157,9 @@ namespace chess {
 					mouseY_slot = calculateSlot(event.motion.y);
 
 					if (chessBoard.can_move_piece(mouseX_slot, mouseY_slot, piece_to_move_piece_type)  == BOARD_RESPONSE::PROMOTE_POND){
-						std::cout << "placing piece" << std::endl;
+						std::cout << "placing piece:"<< mouseX_slot << ", " << mouseY_slot << std::endl;
+
+						// restrict access to this, call at the end of can_move_piece
 						chessBoard.update_position(mouseX_slot, mouseY_slot, piece_to_move_piece_type);
 						piece_to_move_prev_pos.x = mouseX_slot;
 						piece_to_move_prev_pos.y = mouseY_slot;
@@ -198,7 +205,7 @@ namespace chess {
 				piece_to_move.y = event.motion.y-50;
 			}
 			if (event.type == SDL_MOUSEBUTTONDOWN && !isGrabbing) {
-				std::cout << "left is being pressed" << std::endl;
+				std::cout << "left is being pressed: " << event.motion.x << ", " << event.motion.y << std::endl;
 				if (event.button.button == SDL_BUTTON_LEFT) {
 
 					if (canGrab((int)event.motion.x, (int)event.motion.y)) {
@@ -218,10 +225,14 @@ namespace chess {
 				SDL_GetWindowPosition(m_window, &x, &y);
 				promote_pond_modal.display(x + (int)event.user.data1, y + (int)event.user.data2);
 				promoting_pond = true;
-				// proccess the piece selection
-				// delete pond at that position
-				// place the new piece where the pond was
 			}
+			//for debugging
+			
+			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == 13)
+			{
+				chessBoard.reset_positions();
+			}
+			
 		}
 	
 		
@@ -233,7 +244,7 @@ namespace chess {
 		SDL_RenderCopy(m_renderer, m_board_texture, NULL, &(Screen::BOARD_DIMENSION));
 		SDL_Texture* piece = nullptr;
 		
-		for (auto it = chessBoard.piece_positions.begin(); it != chessBoard.piece_positions.end(); ++it) {
+		for (auto it = chessBoard.get_begin_iterator(); it != chessBoard.get_end_iterator(); ++it) {
 
 
 			PieceTypeColor ptc = { (it->second)->get_piece_type(), (it->second)->m_piece_color};

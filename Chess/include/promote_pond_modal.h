@@ -19,9 +19,8 @@ namespace chess {
 	private:
 		SDL_Window* m_window;
 		SDL_Renderer* m_renderer;
-		void render_textures();
 		std::unordered_map <PieceType, SDL_Texture*, PieceTypeKeyHasher> m_piece_textures;
-		std::unordered_map <Coor, PieceType, KeyHasherCoor> m_piece_positions;
+		std::unordered_map <Coor, PieceType, CoorKeyHasher> m_piece_positions;
 		void loadAsset(const char*, const PieceType, const int x, const int y);
 	
 	};
