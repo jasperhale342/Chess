@@ -2,14 +2,12 @@
 #include <coor.h>
 
 namespace chess {
-	BishopPiece::BishopPiece(PieceColor piece_color,Coor piece_position) :Piece(piece_color, piece_position) { m_piece_type = BISHOP; };
+	BishopPiece::BishopPiece(PieceColor piece_color) :Piece(piece_color) { m_piece_type = BISHOP; };
 	BishopPiece::~BishopPiece() {};
 
-	bool BishopPiece::can_move(int x, int y) {
+	bool BishopPiece::can_move(Coor src, Coor des) {
 		return true;
 	}
-	void BishopPiece::update_position(int x, int y) {
-
-	}
+	
 
 }

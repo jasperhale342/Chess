@@ -4,10 +4,9 @@
 namespace chess {
 	class PondPiece : public Piece {
 	public:
-		PondPiece(PieceColor piece_color, Coor piece_position);
+		PondPiece(PieceColor piece_color);
 		~PondPiece();
-		virtual bool can_move(int x, int y) override;
-		virtual void update_position(int x, int y) override;
+		virtual bool can_move(Coor src, Coor des) override;
 		bool is_first_move = true;
 		bool is_en_passantable = false;
 

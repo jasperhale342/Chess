@@ -5,10 +5,10 @@
 #include "rook_piece.h"
 #include <unordered_map>
 using namespace chess;
+
+namespace test_hashers {
 BOOST_AUTO_TEST_SUITE(HashersTest)
 
-
-namespace hashers_test {
 	BOOST_AUTO_TEST_CASE(Coor_Hasher_x1_equal_y2_and_x2_equal_y1)
 	{
 		

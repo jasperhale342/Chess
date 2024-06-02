@@ -14,6 +14,15 @@ namespace chess {
 	class Screen
 	{
 	public:
+		Screen();
+		void update();
+		void renderBoard();
+		bool init();
+		bool processSDLEvents();
+		bool canGrab(int, int);
+		int calculateSlot(int x);
+		void close();
+		void clear();
 		const static int SCREEN_WIDTH = 800;
 		const static int SCREEN_HEIGHT = 800;
 		const static SDL_Rect BOARD_DIMENSION;
@@ -28,25 +37,16 @@ namespace chess {
 		Board chessBoard;
 		SDL_Rect piece_to_move = {0,0,100,100};
 		SDL_Texture* piece_to_move_texture;
+
 		Piece* piece_to_move_piece_type;
 		Coor piece_to_move_prev_pos;
+
 		void loadAsset(const char *, const PieceType, const PieceColor);
 		void translate_piece_positions() {
 			
 		};
 		PromtePondModal promote_pond_modal;
 		bool promoting_pond;
-
-	public:
-		Screen();
-		void update();
-		void renderBoard() ;
-		bool init();
-		bool processSDLEvents();
-		bool canGrab(int, int);
-		int calculateSlot(int x);
-		void close();
-		void clear();
 	
 
 

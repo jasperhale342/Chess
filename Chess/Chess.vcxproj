@@ -261,7 +261,8 @@
     <ClCompile Include="src\queen_piece.cpp" />
     <ClCompile Include="src\rook_piece.cpp" />
     <ClCompile Include="src\screen.cpp" />
-    <ClCompile Include="tests\test_board.cpp">
+    <ClCompile Include="tests\test_board.cpp" />
+    <ClCompile Include="tests\test_board_pond.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>

@@ -12,7 +12,7 @@ using namespace chess;
 
 int main(int argc, char* args[])
 {
-   
+   // this should be passed in by reference so that another screen can use it. either make a member variable that gets assigned when contructed or pass every time when call renderboard and processSDLEvents
     //Board chessBoard(true);
     Screen screen;
     if (!screen.init()) {

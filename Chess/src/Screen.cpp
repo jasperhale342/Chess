@@ -21,13 +21,13 @@ namespace chess {
 		int x = mouseX - (mouseX % 100);
 		int y = mouseY - (mouseY % 100);
 		Coor coor = { x,y };
-		auto it = chessBoard.get_piece(coor);
-		if (it != chessBoard.get_end_iterator()){
+		auto it = chessBoard.get_piece_iterator(coor);
+		if (it != chessBoard.get_end_iterator_of_piece_posistions()){
 			//might need to change this later
 			piece_to_move_prev_pos = it->first;
 			piece_to_move.x = (it->first).x;
 			piece_to_move.y = (it->first).y;
-			//piece_to_move_texture = m_piece_textures[(it->second)->m_piece_type];
+			
 			PieceTypeColor ptc = { (it->second)->get_piece_type(), (it->second)->m_piece_color};
 			piece_to_move_texture = m_piece_textures.at(ptc);
 		
@@ -138,13 +138,9 @@ namespace chess {
 				mouseY_slot = calculateSlot(event.motion.y);
 				PieceType pieceType = promote_pond_modal.select_piece(mouseX_slot, mouseY_slot);
 				std::cout << "This is where the pond will be placed:" << mouseX_slot << ", " << mouseY_slot << std::endl;
-				PieceColor color = WHITE;
-				if (!chessBoard.m_is_white_turn) {
-					color = BLACK;
-				}
+				
 				//should probably be one function called promote pond
-				chessBoard.remove_piece({ piece_to_move_prev_pos.x , piece_to_move_prev_pos.y });
-				chessBoard.create_piece_from_pond(piece_to_move_prev_pos.x, piece_to_move_prev_pos.y, pieceType, color);
+				chessBoard.promote_pond({ piece_to_move_prev_pos.x, piece_to_move_prev_pos.y }, pieceType);
 				promote_pond_modal.close_display();
 				SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
 				promoting_pond = false;
@@ -156,11 +152,11 @@ namespace chess {
 					mouseX_slot = calculateSlot(event.motion.x);
 					mouseY_slot = calculateSlot(event.motion.y);
 
-					if (chessBoard.can_move_piece(mouseX_slot, mouseY_slot, piece_to_move_piece_type)  == BOARD_RESPONSE::PROMOTE_POND){
+					if (chessBoard.if_able_to_move_piece_then_move_piece(piece_to_move_prev_pos, { mouseX_slot, mouseY_slot }, piece_to_move_piece_type) == BOARD_RESPONSE::PROMOTE_POND) {
 						std::cout << "placing piece:"<< mouseX_slot << ", " << mouseY_slot << std::endl;
 
 						// restrict access to this, call at the end of can_move_piece
-						chessBoard.update_position(mouseX_slot, mouseY_slot, piece_to_move_piece_type);
+						
 						piece_to_move_prev_pos.x = mouseX_slot;
 						piece_to_move_prev_pos.y = mouseY_slot;
 						isGrabbing = false;
@@ -177,9 +173,9 @@ namespace chess {
 						event.user.data2 = (void*)mouseY_slot;
 						SDL_PushEvent(&event);
 					}
-					else if (chessBoard.can_move_piece(mouseX_slot, mouseY_slot, piece_to_move_piece_type) == BOARD_RESPONSE::YES) {
+					else if (chessBoard.if_able_to_move_piece_then_move_piece(piece_to_move_prev_pos, { mouseX_slot, mouseY_slot }, piece_to_move_piece_type) == BOARD_RESPONSE::YES) {
 						std::cout << "placing piece" << std::endl;
-						chessBoard.update_position(mouseX_slot, mouseY_slot, piece_to_move_piece_type);
+						
 						isGrabbing = false;
 						std::cout << "placing at: " << event.motion.x << ", " << event.motion.y << std::endl;
 
@@ -188,8 +184,6 @@ namespace chess {
 					}
 					else {
 						//move piece back to previous position
-						
-						chessBoard.update_position(piece_to_move_prev_pos.x, piece_to_move_prev_pos.y, piece_to_move_piece_type);
 						piece_to_move_texture = nullptr;
 						piece_to_move_piece_type = nullptr;
 						isGrabbing = false;
@@ -244,7 +238,7 @@ namespace chess {
 		SDL_RenderCopy(m_renderer, m_board_texture, NULL, &(Screen::BOARD_DIMENSION));
 		SDL_Texture* piece = nullptr;
 		
-		for (auto it = chessBoard.get_begin_iterator(); it != chessBoard.get_end_iterator(); ++it) {
+		for (auto it = chessBoard.get_begin_iterator_of_piece_posistions(); it != chessBoard.get_begin_iterator_of_piece_posistions(); ++it) {
 
 
 			PieceTypeColor ptc = { (it->second)->get_piece_type(), (it->second)->m_piece_color};

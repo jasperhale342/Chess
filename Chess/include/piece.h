@@ -9,16 +9,15 @@ namespace chess {
 		PieceType m_piece_type;
 	public:
 		const PieceColor m_piece_color;
-
-		Piece(PieceColor piece_color, Coor piece_position) :m_piece_color(piece_color), m_position(piece_position){};
+		Piece(PieceColor piece_color) :m_piece_color(piece_color){};
 		virtual ~Piece() {};
-		virtual bool can_move(int, int) = 0;
-		virtual void update_position(int, int) = 0;
-		
+		virtual bool can_move(Coor src, Coor des) = 0;
 		PieceType get_piece_type() {
 			return m_piece_type;
 		};
-		Coor m_position;
+	
+
+		
 	
 		
 	};

@@ -2,14 +2,12 @@
 #include <coor.h>
 
 namespace chess {
-	KnightPiece::KnightPiece(PieceColor piece_color, Coor piece_position) :Piece(piece_color, piece_position) { m_piece_type = KNIGHT; };
+	KnightPiece::KnightPiece(PieceColor piece_color) :Piece(piece_color) { m_piece_type = KNIGHT; };
 	KnightPiece::~KnightPiece() {};
 
-	bool KnightPiece::can_move(int x, int y) {
+	bool KnightPiece::can_move(Coor src, Coor des) {
 		return true;
 	}
-	void KnightPiece::update_position(int x, int y) {
 
-	}
 
 }
